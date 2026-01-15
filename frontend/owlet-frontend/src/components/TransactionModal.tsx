@@ -53,7 +53,7 @@ export default function TransactionModal({ isOpen, onClose }: TransactionModalPr
                 // Limpa o form
                 setDescription("");
                 setAmount("");
-                setDate(getLocalDate()); // Reseta a data para hoje
+                setDate(getLocalDate());
 
                 router.refresh();
                 onClose();

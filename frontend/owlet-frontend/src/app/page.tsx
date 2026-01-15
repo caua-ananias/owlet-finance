@@ -1,23 +1,30 @@
-"use client"; // Transforma em Client Component
+"use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { fetchTransactions } from "@/src/services/api";
 import { Transaction } from "@/src/types/Transaction";
-import TransactionModal from "@/src/components/TransactionModal"; // Importe o Modal
+import TransactionModal from "@/src/components/TransactionModal";
 
 export default function Home() {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Busca dados ao carregar a página
-    useEffect(() => {
-        loadData();
+    // 1. useCallback mantém a função estável na memória
+    const loadData = useCallback(async () => {
+        try {
+            const data = await fetchTransactions();
+            setTransactions(data);
+        } catch (error) {
+            console.error("Erro ao carregar transações", error);
+        }
     }, []);
 
-    async function loadData() {
-        const data = await fetchTransactions();
-        setTransactions(data);
-    }
+    useEffect(() => {
+        const init = async () => {
+            await loadData();
+        };
+        init();
+    }, [loadData]);
 
     // Cálculos
     const totalBalance = transactions.reduce((acc, t) => {
@@ -35,12 +42,11 @@ export default function Home() {
     return (
         <main className="min-h-screen bg-slate-950 text-slate-200 p-8 font-sans">
 
-            {/* O Modal vive aqui, mas só aparece se isModalOpen for true */}
             <TransactionModal
                 isOpen={isModalOpen}
                 onClose={() => {
                     setIsModalOpen(false);
-                    loadData(); // Recarrega os dados quando fecha o modal (se salvou algo)
+                    loadData(); // Aqui chama normalmente
                 }}
             />
 
@@ -56,7 +62,6 @@ export default function Home() {
                         </h1>
                     </div>
 
-                    {/* Botão agora abre o Modal */}
                     <button
                         onClick={() => setIsModalOpen(true)}
                         className="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-lg font-medium transition-all shadow-lg shadow-emerald-900/20 active:scale-95 border border-emerald-500/50"
@@ -65,12 +70,7 @@ export default function Home() {
                     </button>
                 </header>
 
-                {/* ... (O RESTO DO CÓDIGO DOS CARDS E TABELA CONTINUA IGUAL ABAIXO) ... */}
-                {/* ... Copie os Cards e a Tabela do código anterior e cole aqui ... */}
-
-                {/* Cards de Resumo */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {/* Card Total */}
                     <div className="bg-slate-900/50 backdrop-blur-sm p-6 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden">
                         <p className="text-slate-400 text-sm font-medium uppercase tracking-wider mb-1">Saldo Total</p>
                         <p className="text-3xl font-bold text-white">
@@ -78,7 +78,6 @@ export default function Home() {
                         </p>
                     </div>
 
-                    {/* Card Entradas */}
                     <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 shadow-xl">
                         <p className="text-slate-400 text-sm font-medium uppercase tracking-wider mb-1">Entradas</p>
                         <p className="text-2xl font-semibold text-emerald-400">
@@ -86,7 +85,6 @@ export default function Home() {
                         </p>
                     </div>
 
-                    {/* Card Saídas */}
                     <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 shadow-xl">
                         <p className="text-slate-400 text-sm font-medium uppercase tracking-wider mb-1">Saídas</p>
                         <p className="text-2xl font-semibold text-red-400">
@@ -95,7 +93,6 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/* Tabela */}
                 <section className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
@@ -112,7 +109,6 @@ export default function Home() {
                                 <tr key={t.id} className="hover:bg-slate-800/50 transition-colors">
                                     <td className="px-6 py-4 font-medium text-slate-200">{t.description}</td>
                                     <td className="px-6 py-4 text-slate-500 font-mono text-sm">
-                                        {/* Pega "2026-01-14", divide em partes e inverte para "14/01/2026" */}
                                         {t.date.split('-').reverse().join('/')}
                                     </td>
                                     <td className={`px-6 py-4 text-right font-bold font-mono tracking-tight ${
