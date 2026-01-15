@@ -37,7 +37,7 @@ Na raiz do projeto backend, suba o container do banco:
 ```
 docker-compose up -d
 ```
-###2. Backend (API)
+### 2. Backend (API)
 ```
 cd owlet-backend
 ./mvnw spring-boot:run
@@ -46,7 +46,7 @@ A API estará rodando em: http://localhost:8080
 
     Nota: O sistema possui um DataSeeder que cria automaticamente um usuário de teste e transações iniciais.
 
-###3. Frontend (Web)
+### 3. Frontend (Web)
 
 ```
 cd owlet-frontend
