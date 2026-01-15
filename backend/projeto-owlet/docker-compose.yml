@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine  # Versão leve do Postgres
+    container_name: owlet_db
+    ports:
+      - "5432:5432"  # Porta do PC : Porta do Container
+    environment:
+      - POSTGRES_DB=owlet_db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Salva os dados mesmo se desligar o container
+    restart: always
+
+volumes:
+  postgres_data:
