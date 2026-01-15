@@ -1,16 +1,15 @@
 # 🦉 Owlet Finance
 
 ![Java](https://img.shields.io/badge/Java-25-ED8B00?style=for-the-badge&logo=java&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
 Owlet Finance é um sistema de gestão financeira pessoal desenvolvido para demonstrar a implementação de uma arquitetura moderna Fullstack. O projeto utiliza uma API robusta em Java com Spring Boot e um Frontend responsivo e elegante com Next.js.
 
-![Dashboard Preview](./assets/dashboard-preview.png)
-*(Coloque seu print aqui numa pasta assets)*
+![Dashboard Preview](./assets/pagina-inicial.png)
 
 ## 🚀 Tecnologias
 
@@ -35,28 +34,27 @@ Owlet Finance é um sistema de gestão financeira pessoal desenvolvido para demo
 
 ### 1. Banco de Dados
 Na raiz do projeto backend, suba o container do banco:
-```bash
+```
 docker-compose up -d
-
-2. Backend (API)
-Bash
-
+```
+###2. Backend (API)
+```
 cd owlet-backend
 ./mvnw spring-boot:run
-
+```
 A API estará rodando em: http://localhost:8080
 
     Nota: O sistema possui um DataSeeder que cria automaticamente um usuário de teste e transações iniciais.
 
-3. Frontend (Web)
-Bash
+###3. Frontend (Web)
 
+```
 cd owlet-frontend
 npm install
 npm run dev
-
+```
 Acesse o dashboard em: http://localhost:3000
-🚧 Melhorias Futuras (Roadmap)
+## 🚧 Melhorias Futuras (Roadmap)
 
     [ ] Edição e Exclusão de Transações.
 
